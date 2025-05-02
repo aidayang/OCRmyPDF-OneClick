@@ -4,163 +4,123 @@
 
 <img src="docs/images/logo.svg" width="240" alt="OCRmyPDF">
 
-[![Build Status](https://github.com/ocrmypdf/OCRmyPDF/actions/workflows/build.yml/badge.svg)](https://github.com/ocrmypdf/OCRmyPDF/actions/workflows/build.yml) [![PyPI version][pypi]](https://pypi.org/project/ocrmypdf/) ![Homebrew version][homebrew] ![ReadTheDocs][docs] ![Python versions][pyversions]
+# OCRmyPDF-OneClick
+OCRmyPDF windows版免安装部署一键启动整合包
 
-[pypi]: https://img.shields.io/pypi/v/ocrmypdf.svg "PyPI version"
-[homebrew]: https://img.shields.io/homebrew/v/ocrmypdf.svg "Homebrew version"
-[docs]: https://readthedocs.org/projects/ocrmypdf/badge/?version=latest "RTD"
-[pyversions]: https://img.shields.io/pypi/pyversions/ocrmypdf "Supported Python versions"
+OCRmyPDF可以将PDF内不可搜索的图片和文字识别转换为可复制可搜索的文本，并对PDF文件进行优化。
 
-OCRmyPDF adds an OCR text layer to scanned PDF files, allowing them to be searched or copy-pasted.
+![](https://raw.githubusercontent.com/aidayang/OCRmyPDF-OneClick/refs/heads/main/ocrmypdf2.webp)
 
-```bash
-ocrmypdf                      # it's a scriptable command line program
-   -l eng+fra                 # it supports multiple languages
-   --rotate-pages             # it can fix pages that are misrotated
-   --deskew                   # it can deskew crooked PDFs!
-   --title "My PDF"           # it can change output metadata
-   --jobs 4                   # it uses multiple cores by default
-   --output-type pdfa         # it produces PDF/A by default
-   input_scanned.pdf          # takes PDF input (or images)
-   output_searchable.pdf      # produces validated PDF output
-```
 
-[See the release notes for details on the latest changes](https://ocrmypdf.readthedocs.io/en/latest/release_notes.html).
+## OCRmyPDF介绍
 
-## Main features
+主要特点
 
-- Generates a searchable [PDF/A](https://en.wikipedia.org/?title=PDF/A) file from a regular PDF
-- Places OCR text accurately below the image to ease copy / paste
-- Keeps the exact resolution of the original embedded images
-- When possible, inserts OCR information as a "lossless" operation without disrupting any other content
-- Optimizes PDF images, often producing files smaller than the input file
-- If requested, deskews and/or cleans the image before performing OCR
-- Validates input and output files
-- Distributes work across all available CPU cores
-- Uses [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) engine to recognize more than [100 languages](https://github.com/tesseract-ocr/tessdata)
-- Keeps your private data private.
-- Scales properly to handle files with thousands of pages.
-- Battle-tested on millions of PDFs.
+从常规 PDF生成可搜索的PDF/A文件
 
-<img src="misc/screencast/demo.svg" alt="Demo of OCRmyPDF in a terminal session">
+将 OCR 文本准确放置在图像下方，以方便复制/粘贴
 
-For details: please consult the [documentation](https://ocrmypdf.readthedocs.io/en/latest/).
+保持原始嵌入图像的精确分辨率
 
-## Motivation
+如果可能，以“无损”操作插入 OCR 信息，而不会破坏任何其他内容
 
-I searched the web for a free command line tool to OCR PDF files: I found many, but none of them were really satisfying:
+优化 PDF 图像，通常生成比输入文件更小的文件
 
-- Either they produced PDF files with misplaced text under the image (making copy/paste impossible)
-- Or they did not handle accents and multilingual characters
-- Or they changed the resolution of the embedded images
-- Or they generated ridiculously large PDF files
-- Or they crashed when trying to OCR
-- Or they did not produce valid PDF files
-- On top of that none of them produced PDF/A files (format dedicated for long time storage)
+如果需要，在执行 OCR 之前校正和/或清理图像
 
-...so I decided to develop my own tool.
+验证输入和输出文件
 
-## Installation
+将工作分配到所有可用的 CPU 核心
 
-Linux, Windows, macOS and FreeBSD are supported. Docker images are also available, for both x64 and ARM.
+使用Tesseract OCR引擎识别100多种语言
 
-| Operating system              | Install command               |
-| ----------------------------- | ------------------------------|
-| Debian, Ubuntu                | ``apt install ocrmypdf``      |
-| Windows Subsystem for Linux   | ``apt install ocrmypdf``      |
-| Fedora                        | ``dnf install ocrmypdf``      |
-| macOS (Homebrew)              | ``brew install ocrmypdf``     |
-| macOS (MacPorts)              | ``port install ocrmypdf``     |
-| macOS (nix)                   | ``nix-env -i ocrmypdf``       |
-| LinuxBrew                     | ``brew install ocrmypdf``     |
-| FreeBSD                       | ``pkg install py-ocrmypdf``   |
-| Ubuntu Snap                   | ``snap install ocrmypdf``     |
+保护您的私人数据不受侵犯。
 
-For everyone else, [see our documentation](https://ocrmypdf.readthedocs.io/en/latest/installation.html) for installation steps.
+适当扩展以处理数千页的文件。
 
-## Languages
+经过数百万份 PDF 的实战测试。
 
-OCRmyPDF uses Tesseract for OCR, and relies on its language packs. For Linux users, you can often find packages that provide language packs:
+## OCRmyPDF整合包使用说明
 
-```bash
-# Display a list of all Tesseract language packs
-apt-cache search tesseract-ocr
+OCRmyPDF依赖其它外部程序Ghostscript和Tesseract，网盘内有安装程序，全程保持默认安装即可
 
-# Debian/Ubuntu users
-apt-get install tesseract-ocr-chi-sim  # Example: Install Chinese Simplified language pack
+安装Tesseract最后一步会自动下载英文的语言包文件，如果无法自动下载的话，可以直接cancel取消跳过，到我网盘里下载需要的语言包放到Tesseract安装目录内的tessdata文件夹内
 
-# Arch Linux users
-pacman -S tesseract-data-eng tesseract-data-deu # Example: Install the English and German language packs
+然后将软件压缩包OCRmyPDF.7z下载到本地电脑上并解压，然后双击【启动软件.exe】打开软件
 
-# brew macOS users
-brew install tesseract-lang
-```
+首先选择待处理文件，可以是PDF也可以是图片，也可以输入文件夹路径批量处理文件夹内所有文件。
 
-You can then pass the `-l LANG` argument to OCRmyPDF to give a hint as to what languages it should search for. Multiple languages can be requested.
+批处理功能做的比较简单，所有文件是同时处理的，所以建议待处理的文件夹内不要有太多文件，否则可能会比较卡。而且待处理文件夹内不要有PDF和图片以外的文件。如果待处理的文件夹内有图片，批量处理还要设置【图片DPI】值
 
-OCRmyPDF supports Tesseract 4.1.1+. It will automatically use whichever version it finds first on the `PATH` environment variable. On Windows, if `PATH` does not provide a Tesseract binary, we use the highest version number that is installed according to the Windows Registry.
+【OCR语言】默认只支持英文，识别其它语言的话需要下载支持文件.traineddata，常见语言网盘里有，把.traineddata格式文件下载到tesseract安装目录tessdata文件夹内，语言代码如下：
 
-## Documentation and support
+简体中文：chi_sim
 
-Once OCRmyPDF is installed, the built-in help which explains the command syntax and options can be accessed via:
+繁体中文：chi_tra
 
-```bash
-ocrmypdf --help
-```
+德语：deu
 
-Our [documentation is served on Read the Docs](https://ocrmypdf.readthedocs.io/en/latest/index.html).
+法语：fra
 
-Please report issues on our [GitHub issues](https://github.com/ocrmypdf/OCRmyPDF/issues) page, and follow the issue template for quick response.
+日语：jpn
 
-## Feature demo
+韩语：kor
 
-```bash
-# Add an OCR layer and convert to PDF/A
-ocrmypdf input.pdf output.pdf
+俄语：rus
 
-# Convert an image to single page PDF
-ocrmypdf input.jpg output.pdf
+泰语：tha
 
-# Add OCR to a file in place (only modifies file on success)
-ocrmypdf myfile.pdf myfile.pdf
+缅甸语：vie
 
-# OCR with non-English languages (look up your language's ISO 639-3 code)
-ocrmypdf -l fra LeParisien.pdf LeParisien.pdf
+识别英语可以不用填写，识别其它语言的话需要在输入框中输入语言代码。如果是多种语言的话可以混合输入，识别中英文的话可以输入：eng+chi_sim
 
-# OCR multilingual documents
-ocrmypdf -l eng+fra Bilingual-English-French.pdf Bilingual-English-French.pdf
+其它国家语言代码对照表：https://nuowa.net/1796
 
-# Deskew (straighten crooked pages)
-ocrmypdf --deskew input.pdf output.pdf
-```
+其它语言包文件下载链接：https://github.com/tesseract-ocr/tessdata
 
-For more features, see the [documentation](https://ocrmypdf.readthedocs.io/en/latest/index.html).
+【重新OCR】强制对每页重新渲染并 OCR
 
-## Requirements
+【跳过文本】跳过已有文本的页面（仅处理纯图片页）
 
-In addition to the required Python version, OCRmyPDF requires external program installations of Ghostscript and Tesseract OCR. OCRmyPDF is pure Python, and runs on pretty much everything: Linux, macOS, Windows and FreeBSD.
+【重新OCR】和【跳过文本】不可同时选中
 
-## Press & Media
+【校正倾斜】自动校正页面倾斜（提升 OCR 准确率），比如扫描出的PDF文档内容是倾斜的，可以开启此项功能
 
-- [Going paperless with OCRmyPDF](https://medium.com/@ikirichenko/going-paperless-with-ocrmypdf-e2f36143f46a)
-- [Converting a scanned document into a compressed searchable PDF with redactions](https://medium.com/@treyharris/converting-a-scanned-document-into-a-compressed-searchable-pdf-with-redactions-63f61c34fe4c)
-- [c't 1-2014, page 59](https://heise.de/-2279695): Detailed presentation of OCRmyPDF v1.0 in the leading German IT magazine c't
-- [heise Open Source, 09/2014: Texterkennung mit OCRmyPDF](https://heise.de/-2356670)
-- [heise Durchsuchbare PDF-Dokumente mit OCRmyPDF erstellen](https://www.heise.de/ratgeber/Durchsuchbare-PDF-Dokumente-mit-OCRmyPDF-erstellen-4607592.html)
-- [Excellent Utilities: OCRmyPDF](https://www.linuxlinks.com/excellent-utilities-ocrmypdf-add-ocr-text-layer-scanned-pdfs/)
-- [LinuxUser Texterkennung mit OCRmyPDF und Scanbd automatisieren](https://www.linux-community.de/ausgaben/linuxuser/2021/06/texterkennung-mit-ocrmypdf-und-scanbd-automatisieren/)
-- [Y Combinator discussion](https://news.ycombinator.com/item?id=32028752)
+【清理伪影】清理扫描伪影（如黑边、噪点）并将处理后的图像嵌入最终 PDF
 
-## Business enquiries
+如果需要使用【清理伪影】功能，则电脑上需要安装unpaper，unpaper安装步骤如下：
 
-OCRmyPDF would not be the software that it is today without companies and users choosing to provide support for feature development and consulting enquiries. We are happy to discuss all enquiries, whether for extending the existing feature set, or integrating OCRmyPDF into a larger system.
+首先安装Chocolatey，然后安装unpaper
+choco install unpaper
+【图片DPI】处理图片文件的话要指定该值
 
-## License
+【输出格式】默认输出 pdfa 存档，pdf格式修改最小，还有pdfa-1,pdfa-2,pdfa-3等
 
-The OCRmyPDF software is licensed under the Mozilla Public License 2.0 (MPL-2.0). This license permits integration of OCRmyPDF with other code, included commercial and closed source, but asks you to publish source-level modifications you make to OCRmyPDF.
+【标题】自定义 PDF 元数据标题
 
-Some components of OCRmyPDF have other licenses, as indicated by standard SPDX license identifiers or the DEP5 copyright and licensing information file. Generally speaking, non-core code is licensed under MIT, and the documentation and test files are licensed under Creative Commons ShareAlike 4.0 (CC-BY-SA 4.0).
+【指定页面】只处理指定的PDF页面，填数字如1,2,5-8，逗号和连字符都要用英文符号
 
-## Disclaimer
+【线程数】设置并行线程数（默认使用所有 CPU 核心）
 
-The software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+【输出txt】生成独立的txt格式的OCR 文本文件（用于校对或文本分析）
+
+【图像压缩级别】0无压缩，3最高压缩（最大节省空间）
+
+使用【图像压缩级别】功能的话，电脑上需要安装pngquant， PowerShell运行下面命令安装
+
+choco install pngquant
+
+视频教程及效果演示：https://www.youtube.com/watch?v=7-GbGwcyGUU
+
+## 注意事项
+整合包只支持windows10或11
+
+软件运行路径中不要有非英文字符和空格，待处理文件同样要注意
+
+## PDF OCR识别转文本软件OCRmyPDF下载链接
+https://pan.quark.cn/s/c5adb7ecd22b
+
+https://pan.baidu.com/s/1CK49OoGZVeAY67ywkBWUWg?pwd=dw5i
+
+## 项目链接
+https://github.com/ocrmypdf/OCRmyPDF
